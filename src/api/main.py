@@ -15,12 +15,13 @@ from src.api.schemas import (
     AccountingEntryResponse,
     StatusResponse
 )
-from src.api import expense_matching
+from src.api import expense_matching, transactions
 
 app = FastAPI(title="AccountantAI", version="1.0.0")
 
-# Include expense matching router
+# Include routers
 app.include_router(expense_matching.router)
+app.include_router(transactions.router)
 
 
 @app.get("/")

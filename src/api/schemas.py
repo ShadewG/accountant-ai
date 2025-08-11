@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional, Dict, List
-from datetime import datetime
+from datetime import datetime, date
 
 
 class ReceiptResponse(BaseModel):
@@ -87,3 +87,40 @@ class StatusResponse(BaseModel):
     receipts: Dict[str, int]
     payments: Dict[str, int]
     accounting_entries: Dict[str, int]
+
+
+class TransactionResponse(BaseModel):
+    id: int
+    date: date
+    amount: float
+    currency: str
+    type: str
+    description: Optional[str]
+    merchant: Optional[str]
+    category: Optional[str]
+    subcategory: Optional[str]
+    tags: Optional[List[str]]
+    account_name: Optional[str]
+    source: str
+    ai_categorized: bool
+    ai_confidence: Optional[float]
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+
+class AnalysisReportResponse(BaseModel):
+    id: int
+    report_type: str
+    start_date: date
+    end_date: date
+    total_income: float
+    total_expenses: float
+    net_cashflow: float
+    ai_insights: Optional[Dict]
+    recommendations: Optional[List]
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
